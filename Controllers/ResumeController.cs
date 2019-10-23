@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using RestApi.Dto;
 using Microsoft.AspNetCore.Mvc;
+using RestApi.Commands;
 
 namespace RestApi.Controllers
 {
@@ -10,9 +11,11 @@ namespace RestApi.Controllers
     [Route("[Controller]/[action]")]
     public class ResumeController : ControllerBase
     {
-        public ResumeController() 
-        {
+        private readonly ICommandService<AboutMeDto> aboutMeCommandService;
 
+        public ResumeController(ICommandService<AboutMeDto> aboutMeCommandService) 
+        {
+            this.aboutMeCommandService = aboutMeCommandService;
         }
 
         [HttpGet]
@@ -22,9 +25,9 @@ namespace RestApi.Controllers
         }
 
         [HttpPost]
-        public AboutMeDto AboutMe([FromBody] AboutMeDto value)
+        public async Task<AboutMeDto> AboutMe([FromBody] AboutMeDto value)
         {
-            return value;
+            return await this.aboutMeCommandService.SavePost(value);
         }
     }
 }
