@@ -1,6 +1,13 @@
+using RestApi.Model;
+
 namespace RestApi.Dto  
 {
-    public class AboutMeDto {
+    public class AboutMeDto : BaseModel
+    {
+        public AboutMeDto() {
+            this.Hash = this.GetHashCode();
+        }
+
         public int Test {get; set;}
     }
 }
