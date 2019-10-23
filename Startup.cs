@@ -12,6 +12,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RestApi.Commands;
 using RestApi.Dto;
+using RestApi.Queries;
+using RestApi.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace RestApi
 {
@@ -27,7 +30,10 @@ namespace RestApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IQueryService<AboutMeDto>, AboutMeQuery>(ctor => new AboutMeQuery(Configuration["ConnectionString"]));
             services.AddScoped<ICommandService<AboutMeDto>, AboutMeCommandService>();
+             services.AddDbContext<DatabaseContext>(optionsAction: optionsBuilder => 
+                optionsBuilder.UseSqlServer(Configuration["ConnectionString"]));
             services.AddControllers();
         }
 
