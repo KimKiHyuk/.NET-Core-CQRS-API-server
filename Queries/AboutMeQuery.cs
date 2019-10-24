@@ -27,7 +27,7 @@ namespace RestApi.Queries
             using (var conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                return await conn.QueryAsync<AboutMeDto>("SELECT * FROM dbo.AboutMePostDto;");    
+                return await conn.QueryAsync<AboutMeDto>("SELECT * FROM dbo.AboutMe;");    
             }
         }
     }

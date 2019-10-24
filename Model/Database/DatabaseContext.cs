@@ -20,6 +20,6 @@ namespace RestApi.Model
                     .ValueGeneratedOnAdd();
                     */
         }
-        public DbSet<AboutMeDto> AboutMeModels { get; set; }
+        public DbSet<AboutMeDto> AboutMe { get; set; }
     }
 }

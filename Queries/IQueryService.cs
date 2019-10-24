@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RestApi.Queries
 {
-    interface IQueryService<T>
+    public interface IQueryService<T>
     {
         public Task<IEnumerable<T>> All();
     }

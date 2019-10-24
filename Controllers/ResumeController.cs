@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using RestApi.Dto;
 using Microsoft.AspNetCore.Mvc;
 using RestApi.Commands;
+using RestApi.Queries;
 
 namespace RestApi.Controllers
 {
@@ -11,17 +12,19 @@ namespace RestApi.Controllers
     [Route("[Controller]/[action]")]
     public class ResumeController : ControllerBase
     {
+        private readonly IQueryService<AboutMeDto> queryAboutMe;
         private readonly ICommandService<AboutMeDto> aboutMeCommandService;
 
-        public ResumeController(ICommandService<AboutMeDto> aboutMeCommandService) 
+        public ResumeController(ICommandService<AboutMeDto> aboutMeCommandService, IQueryService<AboutMeDto> queryAboutMe) 
         {
             this.aboutMeCommandService = aboutMeCommandService;
+            this.queryAboutMe = queryAboutMe;
         }
 
         [HttpGet]
-        public IEnumerable<int> AboutMe() 
+        public async Task<IEnumerable<AboutMeDto>> AboutMe() 
         {
-            return new List<int>() {1, 2, 3};
+            return await this.queryAboutMe.All();
         }
 
         [HttpPost]

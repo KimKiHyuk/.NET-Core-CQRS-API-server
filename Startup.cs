@@ -15,6 +15,7 @@ using RestApi.Dto;
 using RestApi.Queries;
 using RestApi.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace RestApi
 {
@@ -32,8 +33,10 @@ namespace RestApi
         {
             services.AddScoped<IQueryService<AboutMeDto>, AboutMeQuery>(ctor => new AboutMeQuery(Configuration["ConnectionString"]));
             services.AddScoped<ICommandService<AboutMeDto>, AboutMeCommandService>();
-             services.AddDbContext<DatabaseContext>(optionsAction: optionsBuilder => 
-                optionsBuilder.UseSqlServer(Configuration["ConnectionString"]));
+             services.AddDbContext<DatabaseContext>(optionsAction: optionsBuilder =>
+     optionsBuilder.UseSqlServer(Configuration["ConnectionString"],
+     optionsAction => optionsAction.MigrationsAssembly(typeof(DatabaseContext).GetTypeInfo().Assembly.GetName().Name)));
+
             services.AddControllers();
         }
 
