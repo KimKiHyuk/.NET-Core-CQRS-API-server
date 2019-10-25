@@ -5,7 +5,8 @@
 * youtube : https://coming_soon...
 
 ## Enviroment
-* Stack: C#, ASP.NET Core 3.0 Web API
+* Stack: C#, ASP.NET Core 3.0 Web API\
+* Xunit Test
 * OS: WSL2 (ubuntu 16.04)
 * Editor: vScode
 * DB: MS-SQL 2017
